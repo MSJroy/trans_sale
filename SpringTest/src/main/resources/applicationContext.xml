@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+        <bean />：用于定义一个实例对象。一个实例对应一个 bean 元素。
+        id：该属性是 Bean 实例的唯一标识，程序通过 id 属性访问 Bean，Bean 与 Bean 间的依赖关系也是通过 id 属性关联的。
+        class：指定该 Bean 所属的类，注意这里只能是类，不能是接口。
+    -->
+    <bean id="someService" class="org.example.service.impl.SomeServiceImpl" />
+    <!--使用spring创建非自定义类对象-->
+    <bean id="myDate" class="java.util.Date"/>
+
+    <!--set注入也叫设值注入是指，通过setter方法传入被调用者的实例-->
+    <bean id="myStudent" class="org.example.di01.Student">
+        <!--简单类型的属性赋值-->
+        <property name="name" value="张三"/>
+        <property name="age" value="20" />
+        <!--引用类型的属性赋值-->
+<!--        <property name="school" ref="mySchool"/>-->
+    </bean>
+
+    <!--设置初始时间-->
+    <bean id="myDate01" class="java.util.Date">
+            <property name="time" value="1547646700353"/>
+    </bean>
+
+    <!--声明School对象-->
+    <bean id="mySchool" class="org.example.ba01.School">
+        <property name="name" value="海南大学"/>
+        <property name="address" value="海甸岛"/>
+    </bean>
+
+    <!--构造方式注入-->
+    <bean id="myStudent01" class="org.example.ba03.Student">
+        <constructor-arg name="myAge" value="22"/>
+        <constructor-arg name="myName" value="李四"/>
+        <constructor-arg name="myXueXiao" ref="mySchool"/>
+    </bean>
+
+    <!--声明School对象-->
+    <bean id="school" class="org.example.ba04.School">
+        <property name="name" value="海南大学"/>
+        <property name="address" value="海甸岛"/>
+    </bean>
+
+    <!--
+         使用 byType 方式自动注入，要求：配置文件中被调用者 bean 的 class 属性指定的类，
+        要与代码中调用者 bean 类的某引用类型属性类型同源。即要么相同，要么有 is-a 关系（子
+        类，或是实现类）。但这样的同源的被调用 bean 只能有一个。多于一个，容器就不知该匹配
+        哪一个了。
+    -->
+    <bean id="myStudent04" class="org.example.ba04.Student" autowire="byType">
+        <property name="name" value="z"/>
+        <property name="age" value="20"/>
+    </bean>
+
+    <!--声明组件扫描器-->
+    <context:component-scan base-package="org.example.ba01"/>
+</beans>

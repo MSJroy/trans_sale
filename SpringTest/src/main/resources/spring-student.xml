@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+         使用 byType 方式自动注入，要求：配置文件中被调用者 bean 的 class 属性指定的类，
+        要与代码中调用者 bean 类的某引用类型属性类型同源。即要么相同，要么有 is-a 关系（子
+        类，或是实现类）。但这样的同源的被调用 bean 只能有一个。多于一个，容器就不知该匹配
+        哪一个了。
+    -->
+    <bean id="myStudent" class="org.example.ba06.Student" autowire="byType">
+        <property name="name" value="吴子木"/>
+        <property name="age" value="20"/>
+    </bean>
+</beans>
