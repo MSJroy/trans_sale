@@ -7,9 +7,9 @@ import xyz.qzwl.dao.SaleDao;
 import xyz.qzwl.domain.Goods;
 import xyz.qzwl.domain.Sale;
 import xyz.qzwl.exception.NotEnoughException;
-import xyz.qzwl.service.BuyGoodsService;
+import xyz.qzwl.service.GoodsService;
 
-public class BuyGoodsServiceImpl implements BuyGoodsService {
+public class GoodsServiceImpl implements GoodsService {
 
     private GoodsDao goodsDao;
     private SaleDao saleDao;
@@ -21,10 +21,35 @@ public class BuyGoodsServiceImpl implements BuyGoodsService {
     public void setSaleDao(SaleDao saleDao) {
         this.saleDao = saleDao;
     }
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {NotEnoughException.class, NullPointerException.class})
+    @Override
+    public void addGoods(Integer goodsId, Integer amount, String name, Integer price) {
+        Goods goods = new Goods();
+        goods.setAmount(amount);
+        goods.setId(goodsId);
+        goods.setPrice(price);
+        goods.setName(name);
+        goodsDao.insertGoods(goods);
+    }
+
+    @Override
+    public void editGoods(Integer goodsId, Integer amount, String name, Integer price) {
+        Goods goods = new Goods();
+        goods.setAmount(amount);
+        goods.setId(goodsId);
+        goods.setPrice(price);
+        goods.setName(name);
+        goodsDao.editGoods(goods);
+    }
+
+    @Override
+    public void deleteGoods(Integer goodsId) {
+        goodsDao.deleteGoods(goodsId);
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {NotEnoughException.class, NullPointerException.class})
     @Override
-    public void buy(Integer goodsId, Integer amount) {
+    public void buyGoods(Integer goodsId, Integer amount) {
 
         Sale sale = new Sale();
         sale.setGid(goodsId);

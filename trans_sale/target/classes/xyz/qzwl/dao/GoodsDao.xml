@@ -3,10 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.qzwl.dao.GoodsDao">
-    <insert id="updateGoods">
-       update goods set amount = amount - #{amount} where id=#{id}
+    <insert id="insertGoods"><!-- 添加商品数据 -->
+        insert into goods(id, name, amount, price)
+        values (#{id}, #{name}, #{amount}, #{price})
     </insert>
-    <select id="selectGoods" resultType="Goods">
-        select id,name,price,amount from goods where id=#{goodsId}
+
+    <insert id="updateGoods"><!-- 更新商品数量 -->
+        update goods
+        set amount = amount - #{amount}
+        where id = #{id}
+    </insert>
+
+    <insert id="editGoods"><!-- 修改商品数据 -->
+        update goods
+        set id=#{id},
+            name=#{name},
+            amount=#{amount},
+            price=#{price}
+        where id = #{id}
+    </insert>
+
+    <delete id="deleteGoods"><!-- 删除商品数据 -->
+        delete
+        from goods
+        where id = #{goodsId}
+    </delete>
+
+    <select id="selectGoods" resultType="Goods"><!-- 查看商品数据 -->
+        select id, name, price, amount
+        from goods
+        where id = #{goodsId}
     </select>
 </mapper>

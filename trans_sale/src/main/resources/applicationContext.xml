@@ -38,7 +38,7 @@
     </bean>
 
     <!--声明Service对象-->
-    <bean id="buyService" class="xyz.qzwl.service.impl.BuyGoodsServiceImpl">
+    <bean id="GoodsService" class="xyz.qzwl.service.impl.GoodsServiceImpl">
         <property name="goodsDao" ref="goodsDao" />
         <property name="saleDao" ref="saleDao" />
     </bean>
