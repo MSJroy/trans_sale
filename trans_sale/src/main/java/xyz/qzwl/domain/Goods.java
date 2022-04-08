@@ -1,5 +1,8 @@
 package xyz.qzwl.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Goods {
 
     private Integer id;

@@ -12,6 +12,6 @@ public class testBuy {
         ApplicationContext context = new ClassPathXmlApplicationContext(configLocation);
 
         GoodsService service = (GoodsService) context.getBean("GoodsService");
-        service.buyGoods(1007,2);
+        service.buyGoods(1006,2);
     }
 }
